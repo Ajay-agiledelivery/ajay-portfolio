@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>G. Ajay Kumar — Scrum Master & Delivery Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* =============================================
+   DESIGN TOKENS
+============================================= */
+:root {
+  --cream:      #F2EDE4;
+  --cream-dark: #E8E0D4;
+  --ink:        #1A1208;
+  --ink-deep:   #0D0A04;
+  --amber:      #C17A2A;
+  --amber-lite: #E8A020;
+  --amber-pale: rgba(193,122,42,0.12);
+  --amber-glow: rgba(193,122,42,0.25);
+  --teal:       #0ABFA3;
+  --sky:        #4A9FE8;
+  --dark-bg:    #111827;
+  --dark-mid:   #0D1117;
+  --dark-navy:  #0F1A2E;
+  --dark-green: #0C1F1A;
+  --dark-panel: #1A1208;
+  --text-light: #F2EDE4;
+  --text-muted: #8A9BB8;
+  --text-dim:   #B8C6DC;
+  --border-dark: rgba(255,255,255,0.07);
+  --r: 10px;
+  --r-sm: 4px;
+}
+
+/* =============================================
+   RESET & BASE
+============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Outfit', sans-serif; background: var(--dark-mid); color: var(--text-dim); overflow-x: hidden; line-height: 1.7; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--dark-mid); }
+::-webkit-scrollbar-thumb { background: var(--amber); border-radius: 2px; }
+
+/* =============================================
+   NAV
+============================================= */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  height: 64px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5vw;
+  background: rgba(10,8,4,0.92); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(193,122,42,0.15);
+  animation: slideDown 0.6s ease both;
+}
+@keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.nav-logo {
+  font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700;
+  color: var(--amber); text-decoration: none; letter-spacing: 0.02em;
+}
+.nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+.nav-links a {
+  color: var(--text-muted); font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+  position: relative; transition: color 0.2s;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 1px; background: var(--amber); transform: scaleX(0); transition: transform 0.25s;
+}
+.nav-links a:hover { color: var(--amber); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-cta {
+  background: var(--amber); color: #fff; padding: 8px 22px;
+  border-radius: var(--r-sm); font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+  border: 2px solid var(--amber); transition: all 0.2s;
+}
+.nav-cta:hover { background: transparent; color: var(--amber); }
+
+/* =============================================
+   HERO — SPLIT PANEL (reference layout)
+============================================= */
+#home {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 64px;
+}
+
+/* Left — cream */
+.hero-left {
+  background: var(--cream);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 72px 6vw 52px;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber);
+  margin-bottom: 36px;
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+.hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--amber); }
+
+h1.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.8rem, 6.5vw, 6rem);
+  font-weight: 900; line-height: 0.95;
+  color: var(--ink); letter-spacing: -0.02em;
+  margin-bottom: 18px;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+.hero-tagline {
+  font-size: 0.92rem; color: #6B5E50; margin-bottom: 24px;
+  animation: fadeUp 0.7s 0.3s ease both;
+}
+.hero-tagline strong { color: var(--ink); font-weight: 600; }
+
+.hero-desc {
+  font-size: 0.9rem; color: #5A4E42; line-height: 1.85;
+  max-width: 440px; margin-bottom: 36px;
+  animation: fadeUp 0.7s 0.4s ease both;
+}
+.hero-btns {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  animation: fadeUp 0.7s 0.5s ease both;
+  margin-bottom: 0;
+}
+.btn-primary {
+  background: var(--amber); color: #fff;
+  padding: 13px 30px; border-radius: var(--r-sm);
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; text-decoration: none;
+  border: 2px solid var(--amber); transition: all 0.25s;
+}
+.btn-primary:hover { background: transparent; color: var(--amber); }
+.btn-secondary {
+  border: 1.5px solid var(--ink); color: var(--ink);
+  padding: 13px 30px; border-radius: var(--r-sm);
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; text-decoration: none;
+  background: transparent; transition: all 0.25s;
+}
+.btn-secondary:hover { background: var(--ink); color: var(--cream); }
+
+/* Stats row */
+.hero-stats {
+  display: flex; gap: 36px; padding-top: 40px;
+  border-top: 1px solid #D4C8B8;
+  animation: fadeUp 0.7s 0.6s ease both;
+}
+.hs-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem; font-weight: 700; color: var(--amber); line-height: 1;
+}
+.hs-lbl {
+  font-size: 0.6rem; color: #8A7A6A;
+  text-transform: uppercase; letter-spacing: 0.12em; margin-top: 4px;
+}
+
+/* Right — dark panel with role list */
+.hero-right {
+  background: var(--dark-panel);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 72px 5vw;
+  position: relative; overflow: hidden;
+}
+.hero-right::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 55% at 85% 25%, rgba(193,122,42,0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 15% 75%, rgba(193,122,42,0.05) 0%, transparent 55%);
+  pointer-events: none;
+}
+.hero-right-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+  letter-spacing: 0.2em; text-transform: uppercase; color: #7A6A58;
+  margin-bottom: 24px; position: relative; z-index: 1;
+  animation: fadeUp 0.7s 0.3s ease both;
+}
+.role-list { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
+.role-row {
+  display: flex; align-items: center; gap: 16px;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px; padding: 17px 18px;
+  transition: all 0.3s; cursor: default;
+  animation: fadeUp 0.6s ease both;
+}
+.role-row:nth-child(1) { animation-delay: 0.35s; }
+.role-row:nth-child(2) { animation-delay: 0.45s; }
+.role-row:nth-child(3) { animation-delay: 0.55s; }
+.role-row:nth-child(4) { animation-delay: 0.65s; }
+.role-row:hover { background: rgba(193,122,42,0.08); border-color: rgba(193,122,42,0.4); transform: translateX(5px); }
+.role-icon {
+  width: 38px; height: 38px; border-radius: 8px;
+  background: rgba(193,122,42,0.12); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.role-body { flex: 1; }
+.role-title { font-size: 0.92rem; font-weight: 700; color: var(--cream); margin-bottom: 3px; }
+.role-desc { font-size: 0.7rem; color: #7A6A58; }
+.role-badge {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 4px 11px; border-radius: 4px;
+  flex-shrink: 0; white-space: nowrap;
+}
+.badge-amber { background: rgba(193,122,42,0.15); color: #E8A020; border: 1px solid rgba(193,122,42,0.4); }
+.badge-active { background: rgba(10,191,163,0.12); color: var(--teal); border: 1px solid rgba(10,191,163,0.3); }
+.badge-blue { background: rgba(74,159,232,0.12); color: var(--sky); border: 1px solid rgba(74,159,232,0.3); }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+/* =============================================
+   SECTION UTILITIES
+============================================= */
+.section-wrap { padding: 96px 5vw; }
+.sec-eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.67rem; letter-spacing: 0.22em; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.sec-eyebrow::before { content: ''; width: 28px; height: 1px; flex-shrink: 0; }
+.eyebrow-amber { color: var(--amber); }
+.eyebrow-amber::before { background: var(--amber); }
+.eyebrow-teal { color: var(--teal); }
+.eyebrow-teal::before { background: var(--teal); }
+.eyebrow-sky { color: var(--sky); }
+.eyebrow-sky::before { background: var(--sky); }
+
+.sec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 700; line-height: 1.15; margin-bottom: 10px;
+}
+.title-light { color: var(--text-light); }
+.title-dark  { color: var(--ink); }
+
+.sec-sub { font-size: 0.9rem; line-height: 1.8; max-width: 540px; margin-bottom: 44px; }
+.sub-light { color: var(--text-muted); }
+.sub-dark  { color: #6B5E50; }
+
+/* Reveal animation - subtle only, no hidden content */
+.reveal { opacity: 1; transform: none; }
+.reveal.animate-in { animation: fadeUp 0.7s ease both; }
+
+/* =============================================
+   EXPERIENCE  (#111827 dark slate)
+============================================= */
+#experience { background: #111827; }
+
+.timeline { position: relative; max-width: 860px; }
+.timeline::before {
+  content: ''; position: absolute; left: 14px; top: 0; bottom: 0; width: 1px;
+  background: linear-gradient(to bottom, var(--amber) 0%, rgba(193,122,42,0.15) 80%, transparent 100%);
+}
+.tl-item {
+  display: grid; grid-template-columns: 44px 1fr;
+  gap: 0 22px; margin-bottom: 52px;
+}
+
+.tl-dot-wrap { display: flex; flex-direction: column; align-items: center; padding-top: 3px; }
+.tl-dot {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid var(--amber); background: #111827;
+  display: flex; align-items: center; justify-content: center; z-index: 1;
+}
+.tl-dot.now {
+  background: var(--amber); border-color: var(--amber);
+  box-shadow: 0 0 0 6px rgba(193,122,42,0.18);
+}
+.tl-dot-inner { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); }
+.tl-dot.now .tl-dot-inner { background: var(--ink-deep); }
+
+.tl-content {}
+.tl-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.tl-date {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+  color: var(--amber); background: rgba(193,122,42,0.1);
+  border: 1px solid rgba(193,122,42,0.25); padding: 3px 11px;
+  border-radius: 20px; letter-spacing: 0.05em;
+}
+.tl-company { font-size: 0.76rem; color: var(--text-muted); }
+.tl-role {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem; font-weight: 700;
+  color: var(--text-light); margin-bottom: 14px; line-height: 1.2;
+}
+.tl-list { list-style: none; }
+.tl-list li {
+  font-size: 0.87rem; color: var(--text-dim);
+  padding: 5px 0 5px 20px; position: relative;
+  line-height: 1.72; border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.tl-list li:last-child { border-bottom: none; }
+.tl-list li::before {
+  content: ''; position: absolute; left: 0; top: 15px;
+  width: 8px; height: 1px; background: var(--amber);
+}
+.tl-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+.tl-tag {
+  padding: 3px 12px; font-size: 0.67rem; font-weight: 500;
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;
+  color: var(--text-muted); background: rgba(255,255,255,0.03);
+  transition: all 0.2s; letter-spacing: 0.04em;
+}
+.tl-tag:hover { border-color: rgba(193,122,42,0.4); color: var(--amber-lite); }
+
+/* =============================================
+   CERTIFICATIONS  (#0C1F1A deep teal-green)
+============================================= */
+#certifications { background: #0C1F1A; border-top: 1px solid rgba(10,191,163,0.1); border-bottom: 1px solid rgba(10,191,163,0.1); }
+
+.certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+.cert-card {
+  background: rgba(10,191,163,0.05); border: 1px solid rgba(10,191,163,0.18);
+  border-radius: var(--r); padding: 30px 22px; text-align: center;
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.cert-card::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--teal), transparent);
+  transform: scaleX(0); transition: transform 0.4s;
+}
+.cert-card:hover { border-color: rgba(10,191,163,0.5); transform: translateY(-5px); box-shadow: 0 18px 48px rgba(0,0,0,0.45); }
+.cert-card:hover::after { transform: scaleX(1); }
+.cert-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+.cert-name {
+  font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700;
+  color: var(--text-light); margin-bottom: 6px; line-height: 1.3;
+}
+.cert-issuer { font-size: 0.74rem; color: var(--text-muted); margin-bottom: 14px; }
+.cert-badge {
+  display: inline-block; padding: 4px 14px; border-radius: 20px;
+  font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  background: rgba(10,191,163,0.15); color: var(--teal); border: 1px solid rgba(10,191,163,0.35);
+}
+
+/* =============================================
+   SKILLS  (#FAFAF8 clean white)
+============================================= */
+#skills { background: #FAFAF8; border-top: 1px solid #E8E4DC; border-bottom: 1px solid #E8E4DC; }
+
+.sk-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 80px; }
+.sk-group { padding: 30px 0; border-bottom: 1px solid #E2DDD4; }
+.sk-group:first-child, .sk-group:nth-child(2) { border-top: 1px solid #E2DDD4; }
+
+.sk-title {
+  font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700;
+  color: var(--ink); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+}
+.sk-title::after {
+  content: ''; flex: 1; height: 1.5px;
+  background: linear-gradient(to right, var(--amber), transparent);
+}
+.sk-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+.sk-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.sk-pill {
+  padding: 5px 15px; border: 1.5px solid #C8BEA8; border-radius: 4px;
+  font-size: 0.76rem; color: #3D3020; background: #fff;
+  transition: all 0.2s; cursor: default;
+}
+.sk-pill:hover { border-color: var(--amber); color: var(--amber); background: #FEF9F0; transform: translateY(-1px); }
+
+@media (max-width: 680px) {
+  .sk-2col { grid-template-columns: 1fr; }
+  .sk-group:nth-child(2) { border-top: none; }
+}
+
+/* =============================================
+   CHEAT SHEETS  (#F7F5F0)
+============================================= */
+#cheatsheets { background: #F7F5F0; border-top: 1px solid #E2DDD4; border-bottom: 1px solid #E2DDD4; }
+
+.cs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.cs-card {
+  background: #fff; border: 1px solid #E2DDD4;
+  border-radius: var(--r); overflow: hidden;
+  display: flex; flex-direction: column; transition: all 0.3s;
+}
+.cs-card:hover { border-color: var(--amber); box-shadow: 0 8px 32px rgba(193,122,42,0.12); transform: translateY(-3px); }
+.cs-head {
+  background: #EEEBE4; padding: 18px 22px;
+  display: flex; align-items: center; gap: 14px;
+  border-bottom: 1px solid #E2DDD4;
+}
+.cs-icon {
+  width: 40px; height: 40px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+}
+.cs-icon.i-amber { background: rgba(193,122,42,0.15); }
+.cs-icon.i-blue  { background: rgba(74,130,200,0.12); }
+.cs-icon.i-teal  { background: rgba(10,175,155,0.12); }
+.cs-icon.i-rose  { background: rgba(210,70,90,0.10);  }
+.cs-head-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.cs-head-sub { font-size: 0.68rem; color: #9A8E7E; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
+.cs-body { padding: 18px 22px; flex: 1; }
+.cs-list { list-style: none; }
+.cs-list li {
+  font-size: 0.8rem; color: #3D3428; padding: 6px 0 6px 16px;
+  border-bottom: 1px solid #EEE; position: relative; line-height: 1.55;
+}
+.cs-list li:last-child { border-bottom: none; }
+.cs-list li::before { content: '•'; position: absolute; left: 0; top: 6px; color: var(--amber); font-size: 1rem; line-height: 1.3; }
+.cs-list strong { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 680px) { .cs-grid { grid-template-columns: 1fr; } }
+
+/* =============================================
+   THOUGHTS  (#0F1A2E deep navy)
+============================================= */
+#thoughts { background: #0F1A2E; border-top: 1px solid rgba(74,159,232,0.1); border-bottom: 1px solid rgba(74,159,232,0.1); }
+
+.th-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; }
+.th-card {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(74,159,232,0.12);
+  border-radius: var(--r); padding: 26px;
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.th-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--amber), var(--sky));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.35s;
+}
+.th-card:hover { border-color: rgba(74,159,232,0.35); background: rgba(74,159,232,0.05); transform: translateY(-4px); box-shadow: 0 14px 44px rgba(0,0,0,0.35); }
+.th-card:hover::before { transform: scaleX(1); }
+.th-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
+.th-tag {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 20px;
+  background: rgba(74,159,232,0.1); color: var(--sky); border: 1px solid rgba(74,159,232,0.25);
+}
+.th-tag.t-amber { background: rgba(193,122,42,0.1); color: var(--amber-lite); border-color: rgba(193,122,42,0.25); }
+.th-title {
+  font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700;
+  color: var(--text-light); margin-bottom: 10px; line-height: 1.3;
+}
+.th-body { font-size: 0.82rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 18px; }
+.th-author { display: flex; align-items: center; gap: 10px; }
+.th-av {
+  width: 30px; height: 30px; border-radius: 50%; background: var(--amber);
+  color: var(--ink-deep); display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.82rem; flex-shrink: 0;
+}
+.th-byline { font-size: 0.7rem; color: var(--text-muted); }
+.th-byline strong { color: var(--text-dim); font-weight: 500; }
+
+/* =============================================
+   ACHIEVEMENTS  (#0D1117)
+============================================= */
+#achievements { background: #0D1117; }
+
+.ach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; }
+.ach-card {
+  background: rgba(193,122,42,0.06); border: 1px solid rgba(193,122,42,0.2);
+  border-radius: var(--r); padding: 36px 22px; text-align: center; transition: all 0.3s;
+}
+.ach-card:hover { border-color: var(--amber); transform: translateY(-5px); box-shadow: 0 18px 50px rgba(0,0,0,0.4); }
+.ach-num {
+  font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 900;
+  color: var(--amber); line-height: 1; margin-bottom: 10px;
+}
+.ach-num sup { font-size: 1.8rem; }
+.ach-text { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
+
+/* =============================================
+   EDUCATION  (#091522 deep navy)
+============================================= */
+#education { background: #091522; border-top: 1px solid rgba(74,159,232,0.08); }
+
+.edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px; }
+.edu-card {
+  background: rgba(74,159,232,0.05); border: 1px solid rgba(74,159,232,0.18);
+  border-radius: var(--r); padding: 28px; display: flex; gap: 16px; align-items: flex-start;
+  transition: all 0.3s;
+}
+.edu-card:hover { border-color: rgba(74,159,232,0.45); transform: translateY(-3px); }
+.edu-icon { font-size: 2rem; flex-shrink: 0; }
+.edu-degree { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text-light); margin-bottom: 4px; }
+.edu-field { font-size: 0.76rem; color: var(--sky); margin-bottom: 4px; }
+.edu-uni { font-size: 0.73rem; color: var(--text-muted); }
+
+/* =============================================
+   CONTACT  (#0F1A0F deep forest)
+============================================= */
+#contact {
+  background: #0F1A0F; text-align: center;
+  border-top: 1px solid rgba(10,191,163,0.08); position: relative;
+}
+#contact::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(10,191,163,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+.contact-inner { position: relative; z-index: 1; max-width: 660px; margin: 0 auto; }
+.contact-cards { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin: 38px 0; }
+.cc {
+  background: rgba(10,191,163,0.06); border: 1px solid rgba(10,191,163,0.2);
+  border-radius: var(--r); padding: 20px 26px; text-align: center;
+  text-decoration: none; min-width: 165px; transition: all 0.3s;
+}
+.cc:hover { border-color: var(--teal); background: rgba(10,191,163,0.1); transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,0.35); }
+.cc-icon { font-size: 1.4rem; margin-bottom: 7px; }
+.cc-label { font-size: 0.63rem; color: var(--teal); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace; }
+.cc-val { font-size: 0.8rem; color: var(--text-light); font-weight: 500; }
+.btn-contact {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--amber); color: var(--ink-deep);
+  padding: 15px 42px; border-radius: var(--r-sm);
+  font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; text-decoration: none;
+  border: 2px solid var(--amber); transition: all 0.25s;
+}
+.btn-contact:hover { background: transparent; color: var(--amber); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(193,122,42,0.35); }
+
+/* =============================================
+   FOOTER
+============================================= */
+footer {
+  background: var(--dark-mid);
+  border-top: 1px solid var(--border-dark);
+  padding: 24px 5vw; display: flex;
+  justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 14px;
+}
+.ft-brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--amber); }
+.ft-copy { font-size: 0.72rem; color: var(--text-muted); }
+.ft-links { display: flex; gap: 22px; }
+.ft-links a { font-size: 0.72rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.ft-links a:hover { color: var(--amber); }
+
+/* =============================================
+   CHAT WIDGET
+============================================= */
+.chat-widget { position: fixed; bottom: 28px; right: 28px; z-index: 800; }
+.chat-fab {
+  width: 54px; height: 54px; border-radius: 50%;
+  background: var(--amber); color: var(--ink-deep);
+  border: none; cursor: pointer; font-size: 1.3rem;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 22px rgba(193,122,42,0.5); transition: all 0.25s;
+}
+.chat-fab:hover { transform: scale(1.1) rotate(10deg); }
+.chat-panel {
+  position: absolute; bottom: 66px; right: 0;
+  width: 310px; border-radius: var(--r);
+  background: #161C27; border: 1px solid rgba(193,122,42,0.25);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.6);
+  overflow: hidden; display: none;
+}
+.chat-panel.open { display: block; animation: popUp 0.3s ease; }
+@keyframes popUp { from { opacity: 0; transform: scale(0.92) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.chat-hdr {
+  padding: 14px 16px; border-bottom: 1px solid rgba(193,122,42,0.15);
+  background: rgba(193,122,42,0.1);
+  display: flex; align-items: center; gap: 10px;
+}
+.chat-av {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--amber);
+  color: var(--ink-deep); display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem;
+}
+.chat-nm { font-size: 0.88rem; font-weight: 600; color: var(--text-light); }
+.chat-online { font-size: 0.66rem; color: var(--teal); display: flex; align-items: center; gap: 4px; }
+.chat-online::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+.chat-msgs {
+  padding: 14px 16px; height: 185px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.cmsg { max-width: 88%; padding: 9px 13px; font-size: 0.79rem; line-height: 1.55; border-radius: 10px; }
+.cmsg.bot { background: rgba(193,122,42,0.1); color: var(--text-dim); align-self: flex-start; border-radius: 4px 10px 10px 10px; }
+.cmsg.usr { background: var(--amber); color: var(--ink-deep); font-weight: 500; align-self: flex-end; border-radius: 10px 4px 10px 10px; }
+.chat-quick { padding: 8px 16px; display: flex; flex-wrap: wrap; gap: 6px; border-top: 1px solid rgba(255,255,255,0.05); }
+.cq { padding: 4px 10px; font-size: 0.68rem; border: 1px solid rgba(193,122,42,0.25); border-radius: 20px; background: none; color: var(--text-dim); cursor: pointer; transition: all 0.2s; }
+.cq:hover { border-color: var(--amber); color: var(--amber); background: rgba(193,122,42,0.08); }
+.chat-row { padding: 10px 16px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 8px; }
+.chat-inp {
+  flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px; padding: 7px 13px; color: var(--text-light);
+  font-size: 0.77rem; outline: none; font-family: 'Outfit', sans-serif; transition: border-color 0.2s;
+}
+.chat-inp:focus { border-color: rgba(193,122,42,0.4); }
+.chat-send {
+  width: 32px; height: 32px; border-radius: 50%; background: var(--amber);
+  border: none; cursor: pointer; color: var(--ink-deep); font-size: 0.8rem;
+  display: flex; align-items: center; justify-content: center; transition: transform 0.2s;
+}
+.chat-send:hover { transform: scale(1.1); }
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 900px) {
+  #home { grid-template-columns: 1fr; }
+  .hero-right { padding: 52px 5vw; min-height: auto; }
+  .hero-stats { flex-wrap: wrap; gap: 22px; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 4vw; }
+  .nav-links { display: none; }
+  h1.hero-name { font-size: 3.4rem; }
+  .section-wrap { padding: 68px 5vw; }
+  footer { flex-direction: column; text-align: center; }
+  .chat-widget { bottom: 16px; right: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     NAV
+══════════════════════════════════════ -->
+<nav>
+  <a href="#home" class="nav-logo">G. Ajay Kumar</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#cheatsheets">Resources</a></li>
+    <li><a href="#thoughts">Thoughts</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section id="home">
+
+  <!-- LEFT: cream -->
+  <div class="hero-left">
+    <div>
+      <div class="hero-eyebrow">Available for New Opportunities</div>
+      <h1 class="hero-name">G. Ajay<br>Kumar</h1>
+      <p class="hero-tagline"><strong>Scrum Master</strong> · Delivery Manager · Agile Coach</p>
+      <p class="hero-desc">I am a Certified Scrum Master with 11+ years of experience leading Agile delivery across IT and SaaS environments. I specialise in facilitating high-performing sprint teams, removing blockers before they stall momentum, and building delivery transparency that earns stakeholder trust. My edge is combining servant leadership with Power BI-driven decision making — turning retrospective insights into measurable improvements, sprint after sprint.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">Hire Me</a>
+        <a href="#experience" class="btn-secondary">View Work</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hs-num">11+</div><div class="hs-lbl">Years Experience</div></div>
+      <div><div class="hs-num">18%</div><div class="hs-lbl">Productivity Gain</div></div>
+      <div><div class="hs-num">20%</div><div class="hs-lbl">Faster Releases</div></div>
+      <div><div class="hs-num">90%</div><div class="hs-lbl">Client Satisfaction</div></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: dark role list -->
+  <div class="hero-right">
+    <div class="hero-right-label">I can bring value as a →</div>
+    <div class="role-list">
+      <div class="role-row">
+        <div class="role-icon">⚡</div>
+        <div class="role-body">
+          <div class="role-title">Scrum Master</div>
+          <div class="role-desc">Sprint Facilitation · Agile Coaching · Impediment Removal</div>
+        </div>
+        <span class="role-badge badge-amber">SMC Certified</span>
+      </div>
+      <div class="role-row">
+        <div class="role-icon">🚀</div>
+        <div class="role-body">
+          <div class="role-title">Delivery Manager</div>
+          <div class="role-desc">End-to-End Delivery · Risk Management · Release Planning</div>
+        </div>
+        <span class="role-badge badge-active">Active</span>
+      </div>
+      <div class="role-row">
+        <div class="role-icon">🎯</div>
+        <div class="role-body">
+          <div class="role-title">Agile Coach</div>
+          <div class="role-desc">Team Mentoring · Velocity Tracking · Retrospectives</div>
+        </div>
+        <span class="role-badge badge-amber">CSM</span>
+      </div>
+      <div class="role-row">
+        <div class="role-icon">📊</div>
+        <div class="role-body">
+          <div class="role-title">BI & Reporting Lead</div>
+          <div class="role-desc">Power BI · KPI/SLA Dashboards · Executive Reporting</div>
+        </div>
+        <span class="role-badge badge-blue">PBI Certified</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════
+     EXPERIENCE
+══════════════════════════════════════ -->
+<section id="experience">
+  <div class="section-wrap">
+    <div class="sec-eyebrow eyebrow-amber">Career Journey</div>
+    <h2 class="sec-title title-light">Professional Experience</h2>
+    <p class="sec-sub sub-light">From presales and account management to full Agile delivery leadership — building high-performing teams across IT and SaaS.</p>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot-wrap"><div class="tl-dot now"><div class="tl-dot-inner"></div></div></div>
+        <div class="tl-content">
+          <div class="tl-meta">
+            <span class="tl-date">Sep 2024 – Present</span>
+            <span class="tl-company">Syvora Ventures Pvt. Ltd., Bengaluru</span>
+          </div>
+          <div class="tl-role">Scrum Master &amp; Delivery Manager</div>
+          <ul class="tl-list">
+            <li>I own end-to-end delivery of IT and SaaS engagements, managing scope, schedules, risks, dependencies, and delivery quality across multiple teams</li>
+            <li>I facilitate all Scrum ceremonies — daily stand-ups, sprint planning, sprint reviews, and retrospectives — ensuring consistent, predictable Agile delivery</li>
+            <li>I organise and maintain sprint backlogs in Azure DevOps Boards, keeping priorities clear and every iteration ready to execute</li>
+            <li>I identify, track, and remove impediments impacting sprint progress and team velocity through close cross-functional collaboration</li>
+            <li>I manage Agile-Waterfall hybrid delivery, improving release cadence by 20% through structured sprint execution and baseline governance</li>
+            <li>I build Power BI dashboards for KPI, SLA, and risk reporting, giving stakeholders clear visibility and enabling faster decisions</li>
+            <li>I translate business requirements into actionable backlog items and user stories in close collaboration with stakeholders</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">Azure DevOps</span><span class="tl-tag">Scrum Ceremonies</span>
+            <span class="tl-tag">Power BI</span><span class="tl-tag">Hybrid Delivery</span>
+            <span class="tl-tag">Backlog Management</span><span class="tl-tag">MS Project</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot-wrap"><div class="tl-dot"><div class="tl-dot-inner"></div></div></div>
+        <div class="tl-content">
+          <div class="tl-meta">
+            <span class="tl-date">Feb 2025 – Aug 2025</span>
+            <span class="tl-company">Gappeo — Freelance</span>
+          </div>
+          <div class="tl-role">Growth Consultant</div>
+          <ul class="tl-list">
+            <li>I supported delivery of analytics and marketing automation initiatives, coordinating multiple teams and tracking execution progress</li>
+            <li>I used dashboards and CRM analytics to monitor KPIs, delivery risks, and operational performance metrics</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">Analytics</span><span class="tl-tag">CRM Reporting</span>
+            <span class="tl-tag">KPI Tracking</span><span class="tl-tag">Automation</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot-wrap"><div class="tl-dot"><div class="tl-dot-inner"></div></div></div>
+        <div class="tl-content">
+          <div class="tl-meta">
+            <span class="tl-date">May 2021 – Jun 2024</span>
+            <span class="tl-company">Edusys Services Pvt. Ltd., Bengaluru</span>
+          </div>
+          <div class="tl-role">Manager / Scrum Master</div>
+          <ul class="tl-list">
+            <li>I facilitated Scrum ceremonies for SaaS and EdTech teams, ensuring alignment on sprint goals and effective collaboration</li>
+            <li>I increased team productivity by 18% through consistent sprint facilitation and proactive impediment removal</li>
+            <li>I developed Power BI dashboards for KPI and SLA tracking, improving leadership visibility across all delivery streams</li>
+            <li>I led risk and change management processes, maintaining scope stability and delivery continuity across multiple projects</li>
+            <li>I managed client escalations and delivery forecasts, achieving a 90% client satisfaction rate through proactive stakeholder management</li>
+            <li>I acted as backup Product Owner and Scrum Master, ensuring uninterrupted delivery during transitions</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">SaaS</span><span class="tl-tag">EdTech</span>
+            <span class="tl-tag">Power BI</span><span class="tl-tag">Sprint Facilitation</span>
+            <span class="tl-tag">Risk Management</span><span class="tl-tag">Client Success</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot-wrap"><div class="tl-dot"><div class="tl-dot-inner"></div></div></div>
+        <div class="tl-content">
+          <div class="tl-meta">
+            <span class="tl-date">Jan 2017 – Apr 2021</span>
+            <span class="tl-company">Edusys Services Pvt. Ltd., Bengaluru</span>
+          </div>
+          <div class="tl-role">Account Manager</div>
+          <ul class="tl-list">
+            <li>I managed key client accounts for SaaS and EdTech solutions, driving revenue growth and service adoption</li>
+            <li>I coordinated project delivery activities, ensuring timely resolution of client issues and escalations</li>
+            <li>I built strong client relationships that resulted in contract renewals and upselling opportunities</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">Account Management</span><span class="tl-tag">Client Relations</span><span class="tl-tag">SaaS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot-wrap"><div class="tl-dot"><div class="tl-dot-inner"></div></div></div>
+        <div class="tl-content">
+          <div class="tl-meta">
+            <span class="tl-date">Sep 2014 – Dec 2016</span>
+            <span class="tl-company">Edusys Services Pvt. Ltd., Bengaluru</span>
+          </div>
+          <div class="tl-role">Assistant Manager – Presales</div>
+          <ul class="tl-list">
+            <li>I supported the transition from pre-sales to delivery by preparing proposals, demo materials, and requirement documentation</li>
+            <li>I collaborated with delivery teams to define project scope, timelines, and milestones for SaaS and EdTech implementations</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">Presales</span><span class="tl-tag">Proposals</span><span class="tl-tag">Requirements</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot-wrap"><div class="tl-dot"><div class="tl-dot-inner"></div></div></div>
+        <div class="tl-content">
+          <div class="tl-meta">
+            <span class="tl-date">Nov 2013 – Aug 2014</span>
+            <span class="tl-company">Angel Broking Pvt. Ltd., Bengaluru</span>
+          </div>
+          <div class="tl-role">Relationship Manager</div>
+          <ul class="tl-list">
+            <li>I managed a portfolio of investment clients, providing advisory and support services aligned with their financial objectives</li>
+            <li>I developed the communication and relationship management skills I continue to apply in delivery coordination today</li>
+          </ul>
+          <div class="tl-tags">
+            <span class="tl-tag">Client Advisory</span><span class="tl-tag">Stakeholder Communication</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CERTIFICATIONS
+══════════════════════════════════════ -->
+<section id="certifications">
+  <div class="section-wrap">
+    <div class="sec-eyebrow eyebrow-teal">Credentials</div>
+    <h2 class="sec-title title-light">Certifications</h2>
+    <p class="sec-sub sub-light">Formally recognised across Agile delivery, data analytics, AI, and process improvement disciplines.</p>
+    <div class="certs-grid reveal">
+      <div class="cert-card">
+        <span class="cert-icon">🏅</span>
+        <div class="cert-name">Certified Scrum Master</div>
+        <div class="cert-issuer">SMC — SCRUM Study</div>
+        <span class="cert-badge">✓ Certified</span>
+      </div>
+      <div class="cert-card">
+        <span class="cert-icon">📊</span>
+        <div class="cert-name">Power BI Data Analyst</div>
+        <div class="cert-issuer">Microsoft Certified Associate</div>
+        <span class="cert-badge">✓ Certified</span>
+      </div>
+      <div class="cert-card">
+        <span class="cert-icon">🤖</span>
+        <div class="cert-name">AI for Project Managers</div>
+        <div class="cert-issuer">AI Overview — PMI</div>
+        <span class="cert-badge">✓ Certified</span>
+      </div>
+      <div class="cert-card">
+        <span class="cert-icon">⚙️</span>
+        <div class="cert-name">Six Sigma Yellow Belt</div>
+        <div class="cert-issuer">Process Improvement Certified</div>
+        <span class="cert-badge">✓ Certified</span>
+      </div>
+      <div class="cert-card">
+        <span class="cert-icon">🚀</span>
+        <div class="cert-name">AI &amp; Agility</div>
+        <div class="cert-issuer">Scrum Alliance</div>
+        <span class="cert-badge">✓ Certified</span>
+      </div>
+      <div class="cert-card">
+        <span class="cert-icon">📘</span>
+        <div class="cert-name">Project Management Foundation</div>
+        <div class="cert-issuer">LinkedIn Learning</div>
+        <span class="cert-badge">✓ Certified</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SKILLS
+══════════════════════════════════════ -->
+<section id="skills">
+  <div class="section-wrap">
+    <div class="sec-eyebrow eyebrow-amber">Capabilities</div>
+    <h2 class="sec-title title-dark">Skills &amp; Tools</h2>
+    <p class="sec-sub sub-dark">A comprehensive toolkit built across 11+ years of real-world IT and SaaS delivery.</p>
+    <div class="sk-2col reveal">
+      <div>
+        <div class="sk-group">
+          <div class="sk-title">Agile &amp; Scrum <span class="sk-dot"></span></div>
+          <div class="sk-pills">
+            <span class="sk-pill">Sprint Planning</span><span class="sk-pill">Backlog Grooming</span>
+            <span class="sk-pill">Retrospectives</span><span class="sk-pill">Velocity Tracking</span>
+            <span class="sk-pill">Burndown Charts</span><span class="sk-pill">Agile Coaching</span>
+            <span class="sk-pill">Impediment Removal</span><span class="sk-pill">Servant Leadership</span>
+            <span class="sk-pill">SAFe</span><span class="sk-pill">Kanban</span>
+          </div>
+        </div>
+        <div class="sk-group">
+          <div class="sk-title">Delivery &amp; Governance <span class="sk-dot"></span></div>
+          <div class="sk-pills">
+            <span class="sk-pill">End-to-End Delivery</span><span class="sk-pill">Risk Management</span>
+            <span class="sk-pill">Change Management</span><span class="sk-pill">Release Planning</span>
+            <span class="sk-pill">Scope Control</span><span class="sk-pill">Hybrid Delivery</span>
+            <span class="sk-pill">SLA Management</span><span class="sk-pill">RAID Log</span>
+            <span class="sk-pill">Dependency Management</span><span class="sk-pill">Root Cause Analysis</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sk-group">
+          <div class="sk-title">Reporting &amp; Analytics <span class="sk-dot"></span></div>
+          <div class="sk-pills">
+            <span class="sk-pill">Power BI Dashboards</span><span class="sk-pill">KPI Reporting</span>
+            <span class="sk-pill">SLA Tracking</span><span class="sk-pill">Executive Dashboards</span>
+            <span class="sk-pill">Sprint Metrics</span><span class="sk-pill">SQL</span>
+            <span class="sk-pill">Excel</span><span class="sk-pill">Google Analytics</span>
+          </div>
+        </div>
+        <div class="sk-group">
+          <div class="sk-title">Tools <span class="sk-dot"></span></div>
+          <div class="sk-pills">
+            <span class="sk-pill">Azure DevOps Boards</span><span class="sk-pill">MS Project</span>
+            <span class="sk-pill">ClickUp</span><span class="sk-pill">Jira</span>
+            <span class="sk-pill">Power BI</span><span class="sk-pill">Make Automation</span>
+            <span class="sk-pill">n8n</span><span class="sk-pill">Snov.io</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CHEAT SHEETS
+══════════════════════════════════════ -->
+<section id="cheatsheets">
+  <div class="section-wrap">
+    <div class="sec-eyebrow eyebrow-amber">Free Resources</div>
+    <h2 class="sec-title title-dark">Cheat Sheets &amp; Templates</h2>
+    <p class="sec-sub sub-dark">Practical reference guides for Agile roles — built from 11+ years of real delivery experience.</p>
+    <div class="cs-grid reveal">
+
+      <div class="cs-card">
+        <div class="cs-head">
+          <div class="cs-icon i-amber">⚡</div>
+          <div><div class="cs-head-title">Scrum Master Playbook</div><div class="cs-head-sub">Scrum Master · CSM</div></div>
+        </div>
+        <div class="cs-body">
+          <ul class="cs-list">
+            <li><strong>5 Ceremonies:</strong> Sprint Planning → Daily Standup → Sprint Review → Retrospective → Backlog Refinement</li>
+            <li><strong>Daily Standup (3 Qs):</strong> What did I do? What will I do? Any blockers?</li>
+            <li><strong>Retro Formats:</strong> Start/Stop/Continue · 4Ls · Mad-Sad-Glad · Sailboat</li>
+            <li><strong>Velocity Formula:</strong> Story Points Completed ÷ Sprint = Team Velocity</li>
+            <li><strong>5 Scrum Values:</strong> Commitment · Courage · Focus · Openness · Respect</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cs-card">
+        <div class="cs-head">
+          <div class="cs-icon i-blue">🚀</div>
+          <div><div class="cs-head-title">Delivery Manager Essentials</div><div class="cs-head-sub">Delivery Manager · Hybrid</div></div>
+        </div>
+        <div class="cs-body">
+          <ul class="cs-list">
+            <li><strong>Hybrid Delivery:</strong> Align Scrum sprints with waterfall milestones and dependencies</li>
+            <li><strong>RAID Log:</strong> Risks · Assumptions · Issues · Dependencies — review every sprint</li>
+            <li><strong>Release Cadence:</strong> Baseline → Sprint Baseline → Review → Adjust → Release</li>
+            <li><strong>KPI Must-Haves:</strong> Velocity · Burndown · SLA Adherence · RAG Status</li>
+            <li><strong>Stakeholder Matrix:</strong> High Power / High Interest → Manage Closely</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cs-card">
+        <div class="cs-head">
+          <div class="cs-icon i-teal">📊</div>
+          <div><div class="cs-head-title">Power BI Quick Reference</div><div class="cs-head-sub">Power BI · Microsoft Certified</div></div>
+        </div>
+        <div class="cs-body">
+          <ul class="cs-list">
+            <li><strong>Dashboard Types:</strong> Operational · Analytical · Strategic · Tactical</li>
+            <li><strong>Key Visuals:</strong> KPI Cards · Burndown Lines · Velocity Bar · Sprint Heatmap</li>
+            <li><strong>DAX Essentials:</strong> CALCULATE · FILTER · SUMX · DIVIDE · DATESINPERIOD</li>
+            <li><strong>Data Refresh:</strong> Scheduled · Incremental · Real-time DirectQuery</li>
+            <li><strong>Best Practice:</strong> Connect Azure DevOps → Power BI for live sprint data</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cs-card">
+        <div class="cs-head">
+          <div class="cs-icon i-rose">🔄</div>
+          <div><div class="cs-head-title">Agile Coaching Toolkit</div><div class="cs-head-sub">Agile Coach · Team Mentor</div></div>
+        </div>
+        <div class="cs-body">
+          <ul class="cs-list">
+            <li><strong>Backlog Priority:</strong> MoSCoW · RICE · Value vs Effort Matrix</li>
+            <li><strong>Definition of Ready:</strong> Clear · Estimated · Accepted Criteria · No Blockers</li>
+            <li><strong>Definition of Done:</strong> Coded → Tested → Reviewed → Documented → Deployed</li>
+            <li><strong>Coaching Stances:</strong> Teach · Mentor · Facilitate · Coach</li>
+            <li><strong>SAFe Essentials:</strong> PI Planning · ART Sync · System Demo · I&amp;A Workshop</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     MY THOUGHTS
+══════════════════════════════════════ -->
+<section id="thoughts">
+  <div class="section-wrap">
+    <div class="sec-eyebrow eyebrow-sky">Ideas &amp; Insights</div>
+    <h2 class="sec-title title-light">My Thoughts on Agile &amp; Product</h2>
+    <p class="sec-sub sub-light">Perspectives shaped by real-world delivery of IT, SaaS, and eCommerce — across sprint teams, stakeholders, and shifting priorities.</p>
+    <div class="th-grid reveal">
+
+      <div class="th-card">
+        <div class="th-tags"><span class="th-tag">Scrum</span><span class="th-tag t-amber">SaaS</span></div>
+        <div class="th-title">Why Scrum Works Better in Product Companies Than in Services</div>
+        <div class="th-body">The Two-Track Sprint Model — how separating product development from implementation sprints creates a compounding feedback loop that scales your team without scaling headcount.</div>
+        <div class="th-author"><div class="th-av">A</div><div class="th-byline"><strong>Ajay Kumar</strong> · Agile &amp; SaaS</div></div>
+      </div>
+
+      <div class="th-card">
+        <div class="th-tags"><span class="th-tag t-amber">Delivery</span><span class="th-tag">Hybrid</span></div>
+        <div class="th-title">Running Agile Across Multiple IT and SaaS Clients Simultaneously</div>
+        <div class="th-body">Lessons from managing parallel delivery streams — how sprint ceremonies, RAID logs, and proactive stakeholder transparency kept multi-client SaaS rollouts aligned without losing momentum.</div>
+        <div class="th-author"><div class="th-av">A</div><div class="th-byline"><strong>Ajay Kumar</strong> · Delivery &amp; Governance</div></div>
+      </div>
+
+      <div class="th-card">
+        <div class="th-tags"><span class="th-tag">Retrospectives</span><span class="th-tag t-amber">Continuous Improvement</span></div>
+        <div class="th-title">The Retro That Changed How We Onboard Every New Client</div>
+        <div class="th-body">One structured retrospective uncovered a recurring configuration pattern causing three-week delays for every new client. Here is what we changed — and how it stuck across the entire team.</div>
+        <div class="th-author"><div class="th-av">A</div><div class="th-byline"><strong>Ajay Kumar</strong> · Process Improvement</div></div>
+      </div>
+
+      <div class="th-card">
+        <div class="th-tags"><span class="th-tag">Power BI</span><span class="th-tag t-amber">Reporting</span></div>
+        <div class="th-title">Why Every Scrum Master Should Build Their Own KPI Dashboard</div>
+        <div class="th-body">Velocity charts and burndowns are table stakes. The real value comes when you connect Azure DevOps to Power BI and give stakeholders a live window into sprint health — before they have to ask.</div>
+        <div class="th-author"><div class="th-av">A</div><div class="th-byline"><strong>Ajay Kumar</strong> · Power BI &amp; Analytics</div></div>
+      </div>
+
+      <div class="th-card">
+        <div class="th-tags"><span class="th-tag">Agile Leadership</span><span class="th-tag t-amber">Culture</span></div>
+        <div class="th-title">Scrum Values Are Not Ceremonies — They Are a Culture</div>
+        <div class="th-body">Commitment, Courage, Focus, Openness, Respect. Most teams practice the meetings. The best teams practice the values. The difference between high-performing and average is everything in between.</div>
+        <div class="th-author"><div class="th-av">A</div><div class="th-byline"><strong>Ajay Kumar</strong> · Leadership &amp; Culture</div></div>
+      </div>
+
+      <div class="th-card">
+        <div class="th-tags"><span class="th-tag">Impediments</span><span class="th-tag t-amber">Servant Leadership</span></div>
+        <div class="th-title">Impediment Removal Is 80% Listening and 20% Fixing</div>
+        <div class="th-body">Most blockers are symptoms of deeper team dynamics. The best impediment removal starts not with a solution, but with the right question asked at the right moment in the right sprint ceremony.</div>
+        <div class="th-author"><div class="th-av">A</div><div class="th-byline"><strong>Ajay Kumar</strong> · Scrum Master</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ACHIEVEMENTS
+══════════════════════════════════════ -->
+<section id="achievements">
+  <div class="section-wrap">
+    <div class="sec-eyebrow eyebrow-amber">Impact</div>
+    <h2 class="sec-title title-light">Key Achievements</h2>
+    <p class="sec-sub sub-light">Measurable outcomes delivered through disciplined Agile execution and servant leadership.</p>
+    <div class="ach-grid reveal">
+      <div class="ach-card"><div class="ach-num">20<sup>%</sup></div><div class="ach-text">Improved release cadence through Agile-Waterfall hybrid delivery at Syvora Ventures</div></div>
+      <div class="ach-card"><div class="ach-num">18<sup>%</sup></div><div class="ach-text">Increased team productivity via sprint facilitation and impediment removal at Edusys</div></div>
+      <div class="ach-card"><div class="ach-num">90<sup>%</sup></div><div class="ach-text">Client satisfaction rate through proactive stakeholder management and delivery excellence</div></div>
+      <div class="ach-card"><div class="ach-num">100<sup>%</sup></div><div class="ach-text">On-time, in-scope project completion across all IT and SaaS engagements at Syvora</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     EDUCATION
+══════════════════════════════════════ -->
+<section id="education">
+  <div class="section-wrap">
+    <div class="sec-eyebrow eyebrow-sky">Academic Background</div>
+    <h2 class="sec-title title-light">Education</h2>
+    <div class="edu-grid reveal" style="margin-top:40px">
+      <div class="edu-card">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <div class="edu-degree">Master of Business Administration</div>
+          <div class="edu-field">Finance &amp; Human Resources</div>
+          <div class="edu-uni">Jawaharlal Nehru Technological University (JNTU)</div>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-icon">💻</div>
+        <div>
+          <div class="edu-degree">Bachelor of Technology</div>
+          <div class="edu-field">Information Technology</div>
+          <div class="edu-uni">Jawaharlal Nehru Technological University (JNTU)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CONTACT
+══════════════════════════════════════ -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="contact-inner">
+      <div class="sec-eyebrow eyebrow-teal" style="justify-content:center">Get In Touch</div>
+      <h2 class="sec-title title-light" style="text-align:center">Let's Work Together</h2>
+      <p class="sec-sub sub-light" style="margin:12px auto 0;text-align:center;max-width:520px">
+        I'm open to Scrum Master, Delivery Manager, and Agile Coach opportunities — with a strong preference for teams that value transparency, servant leadership, and continuous improvement.
+      </p>
+      <div class="contact-cards">
+        <a href="mailto:ajay.gummadam@gmail.com" class="cc">
+          <div class="cc-icon">✉️</div>
+          <div class="cc-label">Email</div>
+          <div class="cc-val">ajay.gummadam@gmail.com</div>
+        </a>
+        <a href="tel:+919535612234" class="cc">
+          <div class="cc-icon">📱</div>
+          <div class="cc-label">Phone</div>
+          <div class="cc-val">+91 9535612234</div>
+        </a>
+        <a href="https://linkedin.com/in/ajaya-kumar-g" target="_blank" class="cc">
+          <div class="cc-icon">💼</div>
+          <div class="cc-label">LinkedIn</div>
+          <div class="cc-val">linkedin.com/in/ajaya-kumar-g</div>
+        </a>
+      </div>
+      <a href="mailto:ajay.gummadam@gmail.com" class="btn-contact">📩 Hire Me — Let's Build Something Great</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer>
+  <div class="ft-brand">G. Ajay Kumar</div>
+  <div class="ft-copy">© 2026 G. Ajay Kumar · All Rights Reserved · Bengaluru, India</div>
+  <div class="ft-links">
+    <a href="#home">Home</a>
+    <a href="#experience">Experience</a>
+    <a href="#cheatsheets">Resources</a>
+    <a href="#thoughts">Thoughts</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     CHAT WIDGET
+══════════════════════════════════════ -->
+<div class="chat-widget">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-hdr">
+      <div class="chat-av">A</div>
+      <div>
+        <div class="chat-nm">Ajay's Assistant</div>
+        <div class="chat-online">Online — Ask me anything</div>
+      </div>
+    </div>
+    <div class="chat-msgs" id="chatMsgs">
+      <div class="cmsg bot">👋 Hi! I'm Ajay's portfolio assistant. Ask me about his experience, skills, certifications, or availability.</div>
+    </div>
+    <div class="chat-quick">
+      <button class="cq" onclick="qa('Open roles?')">Open roles?</button>
+      <button class="cq" onclick="qa('Experience')">Experience</button>
+      <button class="cq" onclick="qa('Certifications')">Certifications</button>
+      <button class="cq" onclick="qa('Contact')">Contact</button>
+    </div>
+    <div class="chat-row">
+      <input class="chat-inp" id="chatInp" placeholder="Ask me anything…" onkeydown="if(event.key==='Enter')sendChat()"/>
+      <button class="chat-send" onclick="sendChat()">➤</button>
+    </div>
+  </div>
+  <button class="chat-fab" onclick="toggleChat()">💬</button>
+</div>
+
+<script>
+/* NAV shadow on scroll */
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow =
+    window.scrollY > 40 ? '0 4px 28px rgba(0,0,0,0.55)' : 'none';
+});
+
+/* Chat */
+const answers = {
+  'open roles?': 'Ajay is actively open to Scrum Master, Delivery Manager, and Agile Coach roles in IT and SaaS. Email: ajay.gummadam@gmail.com',
+  'experience': 'Ajay has 11+ years of experience. Currently Scrum Master & Delivery Manager at Syvora Ventures. Previously Manager/Scrum Master at Edusys — 18% productivity gain, 90% client satisfaction.',
+  'certifications': 'Certified Scrum Master (SMC), Microsoft Power BI Data Analyst, AI for Project Managers (PMI), Six Sigma Yellow Belt, AI & Agility (Scrum Alliance), Project Management Foundation.',
+  'contact': 'Email: ajay.gummadam@gmail.com | Phone: +91 9535612234 | LinkedIn: linkedin.com/in/ajaya-kumar-g'
+};
+function toggleChat() { document.getElementById('chatPanel').classList.toggle('open'); }
+function qa(q) {
+  addMsg(q, 'usr');
+  const r = answers[q.toLowerCase()] || 'Please reach Ajay directly at ajay.gummadam@gmail.com for more details!';
+  setTimeout(() => addMsg(r, 'bot'), 380);
+}
+function sendChat() {
+  const inp = document.getElementById('chatInp');
+  const v = inp.value.trim(); if (!v) return;
+  addMsg(v, 'usr'); inp.value = '';
+  const k = Object.keys(answers).find(k => v.toLowerCase().includes(k.replace('?', '')));
+  setTimeout(() => addMsg(k ? answers[k] : 'Please reach Ajay at ajay.gummadam@gmail.com!', 'bot'), 380);
+}
+function addMsg(t, type) {
+  const box = document.getElementById('chatMsgs');
+  const d = document.createElement('div');
+  d.className = 'cmsg ' + type; d.textContent = t;
+  box.appendChild(d); box.scrollTop = box.scrollHeight;
+}
+</script>
+</body>
+</html>
